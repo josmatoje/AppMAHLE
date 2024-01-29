@@ -15,6 +15,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -40,6 +43,15 @@
         <TextBlock x:Name="snSearch" Grid.Column="3" Grid.Row="0" Text="12343" TextAlignment="Left" VerticalAlignment="Center" Margin="5" FontWeight="Bold" Visibility="Collapsed"/>
         <TextBlock x:Name="dato1" Grid.Column="3" Grid.Row="1" Text="Dato1" TextAlignment="Left" VerticalAlignment="Center" Margin="5" Visibility="Collapsed"/>
         <TextBlock x:Name="dato2" Grid.Column="3" Grid.Row="2" Text="Dato2" TextAlignment="Left" VerticalAlignment="Center" Margin="5" Visibility="Collapsed"/>
+        <Button x:Name="ReworkBtn" Grid.Column="3" Grid.Row="3" Content="Hacer Rework" HorizontalAlignment="Center" Click="onClickRework"/>
+        
+        <TextBlock x:Name="rework" Grid.Column="0" Grid.Row="5" Text="Rework PCB: 12343" TextAlignment="Right" VerticalAlignment="Center" Margin="5" FontWeight="Bold" Visibility="Collapsed"/>
+
+        <TextBlock x:Name="username" Grid.Column="0" Grid.Row="6" Text="Estado:" TextAlignment="Right" VerticalAlignment="Center" Margin="5" Visibility="Collapsed"/>
+        <TextBlock x:Name="reworkNum" Grid.Column="0" Grid.Row="7" Text="Lote:" TextAlignment="Right" VerticalAlignment="Center" Margin="5" Visibility="Collapsed"/>
+
+        <TextBox x:Name="usernameBox" Grid.Column="1" Grid.Row="6" Margin="10" Visibility="Collapsed"/>
+        <TextBox x:Name="reworkNumBox" Grid.Column="1" Grid.Row="7" Margin="10" Visibility="Collapsed"/>
     </Grid>
 
 </Page>

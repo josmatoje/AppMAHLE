@@ -7,7 +7,32 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    <Grid Margin="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
-    <TextBlock Text="HousingView"/>
+        <TextBlock x:Name="sNumber" Grid.Column="0" Grid.Row="0" Text="SN:" TextAlignment="Right" VerticalAlignment="Center" Margin="5"/>
+        <TextBlock x:Name="state" Grid.Column="0" Grid.Row="1" Text="Estado:" TextAlignment="Right" VerticalAlignment="Center" Margin="5"/>
 
+        <TextBox x:Name="sNumberBox" Grid.Column="1" Grid.Row="0" Margin="10"/>
+        <TextBox x:Name="stateBox" Grid.Column="1" Grid.Row="1" Margin="10"/>
+
+        <Button x:Name="saveBtn" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2" Content="Dar de alta" HorizontalAlignment="Center" Margin="10" Click="onClickSave"/>
+
+        <Button x:Name="searchBtn"  Grid.Column="2" Grid.Row="0" Content="Mostrar" HorizontalAlignment="Center" Margin="10" Click="onClickSearch"/>
+
+        <TextBlock x:Name="snSearch" Grid.Column="3" Grid.Row="0" Text="12343" TextAlignment="Left" VerticalAlignment="Center" Margin="5" FontWeight="Bold" Visibility="Collapsed"/>
+        <TextBlock x:Name="dato1" Grid.Column="3" Grid.Row="1" Text="Dato1" TextAlignment="Left" VerticalAlignment="Center" Margin="5" Visibility="Collapsed"/>
+        <TextBlock x:Name="dato2" Grid.Column="3" Grid.Row="2" Text="Dato2" TextAlignment="Left" VerticalAlignment="Center" Margin="5" Visibility="Collapsed"/>
+    </Grid>
 </Page>

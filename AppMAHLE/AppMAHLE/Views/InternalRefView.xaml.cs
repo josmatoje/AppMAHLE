@@ -28,5 +28,25 @@ namespace AppMAHLE
             this.InitializeComponent();
         }
 
+        private void onClickSearch(object sender, RoutedEventArgs e)
+        {
+            clearFields();
+            snSearch.Visibility = Visibility.Visible;
+            dato1.Visibility = Visibility.Visible;
+            dato2.Visibility = Visibility.Visible;
+        }
+
+        private void onClickSave(object sender, RoutedEventArgs e)
+        {
+            clearFields();
+        }
+
+        private void clearFields()
+        {
+            sNumberBox.DataContext = string.Empty;
+            referenceBox.DataContext = string.Empty;
+            stateBox.DataContext = string.Empty;
+            loteBox.DataContext = string.Empty;
+        }
     }
 }

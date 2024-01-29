@@ -41,12 +41,21 @@ namespace AppMAHLE
             clearFields();
         }
 
+        private void onClickRework(object sender, RoutedEventArgs e)
+        {
+            rework.Visibility = Visibility.Visible;
+            username.Visibility = Visibility.Visible;
+            reworkNum.Visibility = Visibility.Visible;
+            usernameBox.Visibility = Visibility.Visible;
+            reworkNumBox.Visibility = Visibility.Visible;
+        }
+
         private void clearFields()
         {
-            sNumber.DataContext = string.Empty;
-            reference.DataContext = string.Empty;
-            state.DataContext = string.Empty;
-            lote.DataContext = string.Empty;
+            //sNumberBox.DataContext = string.Empty;
+            //referenceBox.DataContext = string.Empty;
+            //stateBox.DataContext = string.Empty;
+            //loteBox.DataContext = string.Empty;
         }
     }
 }
