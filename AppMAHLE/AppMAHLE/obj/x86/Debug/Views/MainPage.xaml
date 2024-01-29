@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="AppMAHLE.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:control="using:Microsoft.UI.Xaml.Controls"
+    xmlns:local="using:AppMAHLE"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <NavigationView x:ConnectionId='2' x:Name="rootNavigationView" PaneDisplayMode="Top"                                   IsBackButtonVisible="Collapsed" IsSettingsVisible="False">
+        <NavigationView.MenuItems>
+            <NavigationViewItem x:ConnectionId='3' Content="PCB" x:Name="pcb"/>
+            <NavigationViewItem x:ConnectionId='4' Content="Housing" x:Name="housing" />
+            <NavigationViewItem x:ConnectionId='5' Content="Referencia Interna" x:Name="internalRef" />
+            <NavigationViewItem x:ConnectionId='6' Content="Orden de Fabricación" x:Name="of" />
+        </NavigationView.MenuItems>
+
+        <Frame x:ConnectionId='7' x:Name="ContentFrame" />
+    </NavigationView>
+
+</Page>
+
