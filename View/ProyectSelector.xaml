@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="DIV_Protos.ProyectSelector"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DIV_Protos"
+        mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="blueMahle" Color="#6d91aa" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/StringResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Image  Grid.Column="0" Grid.Row="0"  MaxHeight="50"
+                        Source="..\Assets\MAHLE.png" Margin="0,40" 
+                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="DIV Protos -" Margin="0,100,0,0"
+                           VerticalAlignment="Top" FontSize="20"/>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="115,100,0,0"
+                           Text="{StaticResource version}"
+                           VerticalAlignment="Top" FontSize="20"/>
+
+        <TextBlock x:Name="proyectText" Grid.ColumnSpan="2"  Grid.Column="0" Grid.Row="1" 
+                    Text="Seleccione el proyecto sobre el que desea trabajar:" FontWeight="DemiBold" FontSize="28" Margin="0,50,0,0"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <ComboBox x:Name="proyectSelector" Grid.ColumnSpan="3"  Grid.Column="1" Grid.Row="1" 
+                      ItemsSource="{Binding Path = Plataforms}" FontSize="20"
+                      SelectedValue="{Binding Path = SelectedPlataform, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      HorizontalAlignment="Left" VerticalAlignment="Center" Width="170" Height="30" Margin="500,60,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2" Text="*Si no encuentra su proyecto, contacte con soporte técnico."
+                   HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Normal" FontStretch="Condensed" Margin="0,230,0,0"/>
+
+        <Button x:Name="okButton" Grid.Column="0" Grid.Row="2"   Grid.ColumnSpan="3"
+                    Content="Ok" Width="100" Height="30" FontSize="18"
+               HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="720,230,0,0"
+                Click="okButton_Click" IsEnabled="{Binding EnabledBtn}"/>
+
+    </Grid>
+</UserControl>

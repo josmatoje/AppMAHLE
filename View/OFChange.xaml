@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="DIV_Protos.OFChange"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DIV_Protos"
+      mc:Ignorable="d" >
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="blueMahle" Color="#6d91aa" />
+    </UserControl.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition MinWidth="790"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="backButton" Grid.Row="0" Grid.Column="0" 
+                Height="30" Width="70" VerticalAlignment="Top" Margin="0,0,30,30"
+                Content="Back" FontWeight="Medium" Command="{Binding BackMenu}"
+                BorderThickness="2" Background="{StaticResource blueMahle}" Foreground="White"/>
+        <TextBlock x:Name="title"  Grid.Row="0" Grid.Column="1"
+                   Text="Cambio Orden de Fabricación" FontSize="44" FontWeight="Light"
+                   HorizontalAlignment="Left" Margin="30,0,0,40"/>
+        <TextBlock x:Name="userText" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="1"
+                   Text="Usuario: " FontSize="20" FontWeight="Light"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" Margin="650, 0, 0, 30"/>
+        <TextBlock x:Name="actualUser" Grid.ColumnSpan="3"  Grid.Row="0" Grid.Column="1"
+                   Text="{Binding ActualUser, UpdateSourceTrigger=PropertyChanged}" FontSize="20" FontWeight="Light"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" Margin="720,0,0,30"/>
+
+        <TextBlock x:Name="descSN" Grid.Row="1" Grid.Column="1" 
+            Margin="0,0,0,0"
+            HorizontalAlignment="Left" VerticalAlignment="Center" Text="Introduce SN*:"/>
+        <TextBox x:Name="SNTextBox" Grid.Row="1" Grid.Column="1" 
+            Text="{Binding SerialNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnKeyDownHandlerSN"
+            HorizontalAlignment="Left"  Height="20" Width="100" Margin="90,0,0,0"/>
+
+        <Button x:Name="btnSerialNumber" Grid.Row="1" Grid.Column="1" 
+                    Content="OK" Height="30" Width="80" Margin="230,0,0,0"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"  
+                    Click="btnSerialNumberResearch_Click" />
+
+       
+        
+        <TextBlock x:Name="opPendingSN" Grid.Row="1" Grid.Column="1" 
+            Margin="0,100,0,0" Visibility="{Binding VisiblePendingSN, UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding OpPendingView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock x:Name="OFOldText" Grid.Row="1" Grid.Column="1" 
+            Text="Orden de Fabricacion:" FontSize="12" Margin="350,0,0,0" Visibility="{Binding VisibleResearchSN, UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock x:Name="OldOFTextBox" Grid.Row="1" Grid.Column="1" 
+            Text="{Binding OldDescription, UpdateSourceTrigger=PropertyChanged}"  Visibility="{Binding VisibleResearchSN, UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+           Margin="480,0,0,0"/>
+        
+
+        <TextBlock x:Name="InternalVesionOldText" Grid.Row="1" Grid.Column="1" 
+            Text="Version Interna:" FontSize="12" Margin="600,0,0,0" Visibility="{Binding VisibleResearchSN, UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock x:Name="OldVITextBox" Grid.Row="1" Grid.Column="1" 
+            Text="{Binding OldInternalVersion, UpdateSourceTrigger=PropertyChanged}"  Visibility="{Binding VisibleResearchSN, UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="700,0,0,0" />
+
+
+        <TextBlock x:Name="descText" Grid.Row="2" Grid.Column="1" 
+                   Text="Introduce OF*:" Margin="0,0,0,0" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center"
+                   Visibility="{Binding VisibleOF, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="descTextBox" Grid.Row="2" Grid.Column="1" Visibility="{Binding VisibleOF, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode =TwoWay}" KeyDown="OnKeyDownHandler"
+                 HorizontalAlignment="Left"  Height="20" Width="100" Margin="90,0,0,0"/>
+
+        <Button x:Name="btnNewOF" Grid.Row="2" Grid.Column="1" 
+                    Content="OK" Height="30" Width="80" Margin="230,0,0,0"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"  
+                    Visibility="{Binding VisibleOF, UpdateSourceTrigger=PropertyChanged}"
+                    Click="btnNewOFResearch_Click" />
+        
+
+        <TextBlock x:Name="VIText" Grid.Row="2" Grid.Column="1" 
+                   Text="Version Interna nueva:" FontSize="12"  Margin="350,0,0,0" Visibility="{Binding VisibleSaveChangeOF, UpdateSourceTrigger=PropertyChanged}"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock x:Name="InternalVersionTextBox" Grid.Row="2" Grid.Column="1" 
+                 Text="{Binding InternalVersion, UpdateSourceTrigger=PropertyChanged}" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center"  Visibility="{Binding VisibleSaveChangeOF, UpdateSourceTrigger=PropertyChanged}"
+                   Margin="480,0,0,0"/>
+
+        <TextBlock x:Name="OPSaveText" Grid.Row="3" Grid.Column="1" 
+                   Text="Especifique la operación de reanudación*:" FontSize="12" Margin="0,0,0,50"
+                   HorizontalAlignment="Left" VerticalAlignment="Bottom" Visibility="{Binding VisibleSaveChangeOF, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="OPSaveTextBox" Grid.Row="3" Grid.Column="1" 
+            Text="{Binding OpSave, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnKeyDownHandlerSN" VerticalAlignment="Bottom" 
+            HorizontalAlignment="Left"  Height="20" Width="50" Margin="250,0,0,48" Visibility="{Binding VisibleSaveChangeOF, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <TextBlock x:Name="CommentText" Grid.Row="3" Grid.Column="1" 
+                   Text="Comentarios:" FontSize="12" Margin="0,0,0,20"
+                   HorizontalAlignment="Left" VerticalAlignment="Bottom" Visibility="{Binding VisibleSaveChangeOF, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="CommentTextBox" Grid.Row="3" Grid.Column="1" 
+            Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnKeyDownHandlerSN" VerticalAlignment="Bottom" 
+            HorizontalAlignment="Left"  Height="20" Width="200" Margin="100,0,0,20" Visibility="{Binding VisibleSaveChangeOF, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock x:Name="inforText" Grid.Row="2" Grid.Column="1" 
+                   Text="Complete todos los campos obligatorios(*)" FontSize="10" Margin="0,0,0,0"
+                   HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+
+        <DataGrid Grid.ColumnSpan="2" Grid.Row="3" Grid.Column="1"  Margin="0,10,0,0"
+                    Name="gridResults" Width="740"  Height="170" HorizontalAlignment="Left" VerticalAlignment="Top"  
+                    ItemsSource="{Binding ProcessAG,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" 
+                    IsReadOnly="True" Visibility="{Binding VisibleSaveChangeOF, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Proceso" Binding="{Binding Process}" Width="60" />
+                <DataGridTextColumn Header="Descripción Proceso" Width="210" Binding="{Binding ProcessDesc}"/>
+                <DataGridTextColumn Header="Operacion" Binding="{Binding Num}" Width="70"/>
+                <DataGridTextColumn Header="Descripción Operacion" Width="350" Binding="{Binding OperationDesc}"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button x:Name="btnSaveChangeOF" Grid.Row="3" Grid.Column="1" 
+                    Content="Save Change" Height="30" Width="80" Margin="350,0,0,20"
+                    HorizontalAlignment="Left" VerticalAlignment="Bottom"  
+                    Click="btnSaveChangeOF_Click" Visibility="{Binding VisibleSaveChangeOF, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding EnableOk}"/>
+
+
+
+    </Grid>
+</UserControl>
+

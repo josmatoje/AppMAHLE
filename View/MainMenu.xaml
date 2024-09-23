@@ -1,0 +1,218 @@
+﻿<UserControl x:Class="DIV_Protos.MainMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DIV_Protos"
+        mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="blueMahle" Color="#6d91aa" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/StringResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <TabControl x:Name="mainTab" SelectedIndex="{Binding SelectedTab, Mode=TwoWay}">
+        <TabItem Header="Control Inventario" Name="register">
+            <Grid Margin="60,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Text="Inventario Prototipos"  Margin="0,120,0,0"
+                           HorizontalAlignment="Center" FontSize="46" FontWeight="Bold" VerticalAlignment="Center"
+                           />
+                
+                <Image  Grid.Column="0" Grid.Row="0"  MaxHeight="50"
+                        Source="..\Assets\MAHLE.png" Margin="0,40" 
+                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="DIV Protos -" Margin="0,100,0,0"
+                           VerticalAlignment="Top" FontSize="20"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="115,100,0,0"
+                           Text="{StaticResource version}"
+                           VerticalAlignment="Top" FontSize="20"/>
+
+                <TextBlock x:Name="proyectTextA" Grid.Row="0" Grid.Column="2" Margin="0,0,110,0"
+                            Text="Proyecto:" FontSize="20"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <TextBlock x:Name="proyectSelectorA" Grid.Row="0" Grid.Column="2" 
+                            Text="{Binding Path = SelectedPlataform}" FontSize="20"
+                            HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0"/>
+
+
+                <!--<Button Grid.Column="0" Grid.Row="2" Margin="20" Command="{Binding GoToPCB}"
+                        Background="White" BorderBrush="White">
+                    <Image Source="..\Assets\PCB.png" Stretch="Uniform" MaxHeight="250"/>
+                </Button>
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="PCB" FontSize="20"
+                           VerticalAlignment="Bottom" HorizontalAlignment="Center"/>-->
+
+                <Button Grid.Column="0" Grid.Row="2" Margin="50, 35" Command="{Binding GoToHousing}"
+                        Background="White" BorderBrush="White">
+                    <Image Source="..\Assets\Inventario.PNG" Stretch="Uniform" MaxHeight="4500"/>
+                </Button>
+                <TextBlock  Grid.Column="0" Grid.Row="2" Margin="10" Text="Entrada Material" FontSize="20"
+                       VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Gestión Reworks" Name="rework">
+
+            <Grid Margin="60,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+
+              <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Text="Reworks Prototipos"  Margin="0,120,0,0"
+                           HorizontalAlignment="Center" FontSize="46" FontWeight="Bold" VerticalAlignment="Center"
+                           />
+                
+                <Image  Grid.Column="0" Grid.Row="0"  MaxHeight="50"
+                        Source="..\Assets\MAHLE.png" Margin="0,40" 
+                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="DIV Protos -" Margin="0,100,0,0"
+                           VerticalAlignment="Top" FontSize="20"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="115,100,0,0"
+                           Text="{StaticResource version}"
+                           VerticalAlignment="Top" FontSize="20"/>
+
+                <TextBlock x:Name="proyectTextR" Grid.Row="0" Grid.Column="2" Margin="0,0,110,0"
+                            Text="Proyecto:" FontSize="20"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <TextBlock x:Name="proyectSelectorR" Grid.Row="0" Grid.Column="2" 
+                            Text="{Binding Path = SelectedPlataform}" FontSize="20"
+                            HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0"/>
+
+                <Button Grid.Column="0" Grid.Row="2" Margin="50, 35" Command="{Binding GoToPCBRework}"
+                    Background="White" BorderBrush="White">
+                    <Image Source="..\Assets\Rework.PNG" Stretch="Uniform" MaxHeight="4500"/>
+                </Button>
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="10" Text="Entrada Reworks PCBs" FontSize="20"
+                       VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Ventana Ingeniería" Name="ingenier">
+            <Grid Margin="60,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Text="Ingeniería del Producto"  Margin="0,120,0,0"
+                           HorizontalAlignment="Center" FontSize="46" FontWeight="Bold" VerticalAlignment="Center"
+                           />
+
+                <Image  Grid.Column="0" Grid.Row="0"  MaxHeight="50"
+                        Source="..\Assets\MAHLE.png" Margin="0,40" 
+                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="DIV Protos -" Margin="0,100,0,0"
+                           VerticalAlignment="Top" FontSize="20"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="115,100,0,0"
+                           Text="{StaticResource version}"
+                           VerticalAlignment="Top" FontSize="20"/>
+
+                <TextBlock x:Name="proyectTextI" Grid.Row="0" Grid.Column="2" Margin="0,0,110,0"
+                            Text="Proyecto:" FontSize="20"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <TextBlock x:Name="proyectSelectorI" Grid.Row="0" Grid.Column="2" 
+                            Text="{Binding Path = SelectedPlataform}" FontSize="20"
+                            HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0"/>
+
+                <Button Grid.Column="0" Grid.Row="2" Margin="50, 35" Command="{Binding GoToInternalVersion}"
+                    Background="White" BorderBrush="White">
+                    <Image Source="..\Assets\VersionInterna.png" Stretch="Uniform" MaxHeight="4500"/>
+                </Button>
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="10" Text="Definir Producto" FontSize="20"
+                       VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                
+
+                <Button Grid.Column="2" Grid.Row="2" Margin="50, 35" Command="{Binding GoToAG}"
+                    Background="White" BorderBrush="White">
+                    <Image Source="..\Assets\paper.png" Stretch="Uniform" MaxHeight="4500"/>
+                </Button>
+                <TextBlock Grid.Column="2" Grid.Row="2" Margin="10" Text="Subir Proceso AG" FontSize="20"
+                       VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Flujo Producción" Name="gestion">
+            <Grid Margin="60,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Text="Movimientos Producción"  Margin="0,120,0,0"
+                           HorizontalAlignment="Center" FontSize="46" FontWeight="Bold" VerticalAlignment="Center"
+                           />
+
+                <Image  Grid.Column="0" Grid.Row="0"  MaxHeight="50"
+                        Source="..\Assets\MAHLE.png" Margin="0,40" 
+                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="DIV Protos -" Margin="0,100,0,0"
+                           VerticalAlignment="Top" FontSize="20"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="115,100,0,0"
+                           Text="{StaticResource version}"
+                           VerticalAlignment="Top" FontSize="20"/>
+
+                <TextBlock x:Name="proyectTextO" Grid.Row="0" Grid.Column="2" Margin="0,0,110,0"
+                            Text="Proyecto:" FontSize="20"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <TextBlock x:Name="proyectSelectorO" Grid.Row="0" Grid.Column="2" 
+                            Text="{Binding Path = SelectedPlataform}" FontSize="20"
+                            HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0"/>
+
+
+                <Button  Grid.Column="0" Grid.Row="2" Margin="50, 35" Command="{Binding GoToOF}"
+                         Background="White" BorderBrush="White">
+                    <Image Source="..\Assets\OF+_Paper.png" Stretch="Uniform" MaxHeight="4500"/>
+                </Button>
+                <TextBlock  Grid.Column="0" Grid.Row="2" Margin="10" Text="Alta Orden Fabricación" FontSize="20"
+                           VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+
+
+                <Button  Grid.Column="2" Grid.Row="2" Margin="50, 35" Command="{Binding GoToChangeOF}"
+                        Background="White" BorderBrush="White">
+                    <Image Source="..\Assets\ChangeOF.PNG" Stretch="Uniform" MaxHeight="4500"/>
+                </Button>
+                <TextBlock Grid.Column="2" Grid.Row="2" Margin="10" Text="Cambio Orden Fabricacion para SN" FontSize="20"
+                           VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+
+                <!--<Button Grid.Column="1" Grid.Row="2" Margin="50" Command="{Binding GoToOF}"
+                        Background="White" BorderBrush="White">
+                    <Image Source="..\Assets\OF_Paper.png" Stretch="Uniform" MaxHeight="250"/>
+                </Button>
+                <TextBlock Grid.Column="1" Grid.Row="2" Text="Modificar OF" FontSize="20"
+                           VerticalAlignment="Bottom" HorizontalAlignment="Center"/>-->
+
+
+            </Grid>
+        </TabItem>
+    </TabControl>
+</UserControl>

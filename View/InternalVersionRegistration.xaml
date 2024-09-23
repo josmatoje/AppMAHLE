@@ -1,0 +1,740 @@
+﻿<UserControl x:Class="DIV_Protos.InternalVersionRegistration"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DIV_Protos" 
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="blueMahle" Color="#6d91aa" />
+    </UserControl.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="backButton" Grid.Row="0" Grid.Column="0" 
+                Height="30" Width="70" VerticalAlignment="Top" Margin="0,0,30,30"
+                Content="Back" FontWeight="Medium" Command="{Binding BackMenu}"
+                BorderThickness="2" Background="{StaticResource blueMahle}" Foreground="White"/>
+        <TextBlock x:Name="title" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="1"
+                   Text="Alta definición de producto" FontSize="48" FontWeight="Light"
+                   HorizontalAlignment="Center" Margin="0,0,0,40"/>
+        <TextBlock x:Name="userText" Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="3"
+                   Text="Usuario: " FontSize="20" FontWeight="Light"
+                   HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 170, 0"/>
+        <TextBlock x:Name="actualUser" Grid.Row="0" Grid.Column="4"
+                   Text="{Binding ActualUser, UpdateSourceTrigger=PropertyChanged}" FontSize="20" FontWeight="Light"
+                   HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,60,0"/>
+        
+        <TextBlock x:Name="VersionText" Grid.Row="1" Grid.Column="1" 
+                   Text="Versión interna:" Margin="10"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <ComboBox x:Name="VersionTextBox" Grid.Row="1" Grid.Column="1" 
+                 ItemsSource="{Binding ItemDescriptions, UpdateSourceTrigger=PropertyChanged}" 
+                 SelectedItem="{Binding SelectedItemDescription, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left" Margin="100,0,0,0" Height="20" Width="120"/>
+
+        <Button x:Name="btnOpenFile" Grid.Row="1" Grid.Column="2" 
+                Content="Open file" Height="30" Width="80" Margin="20"
+                HorizontalAlignment="Right" VerticalAlignment="Center"
+                Click="btnOpenFile_Click"/>
+        <TextBlock x:Name="textExcelName"  Grid.Row="1" Grid.Column="3"
+                    HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"
+                    MinWidth="200"
+                    Text="{Binding ExcelName, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="20"
+                    MinHeight="300" MaxHeight="400"
+                    VerticalAlignment="Stretch"> <!-- "{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UIElement}}"--> 
+            <ScrollViewer Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}}"
+                          MinHeight="300" MaxHeight="400" 
+                Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="textDefinition" Grid.Row="0" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 0"
+                               Text="Definition" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"
+                               FontWeight="Bold" FontSize="16"/>
+                    <TextBlock x:Name="textPlataform" Grid.Row="0" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="Plataform:" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textPlataformData" Grid.Row="0" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ProjectName}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textDummy" Grid.Row="0" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="Dummy:" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textDummyData" Grid.Row="0" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.IsDummyText}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSample" Grid.Row="0" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="Sample:" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSampleData" Grid.Row="0" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.Sample}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textPartNum" Grid.Row="0" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="Part Number:" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textPartNumData" Grid.Row="0" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.PartNumber}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textInternalVersion" Grid.Row="0" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="Internal version:" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textInternalVersionData" Grid.Row="0" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.InternalVersion}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textdefDate" Grid.Row="0" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="Date:" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textdefDateData" Grid.Row="0" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.Date}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock x:Name="textElectronic" Grid.Row="1" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0"
+                               Text="eHW eBOM" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"
+                               FontWeight="Bold" FontSize="16"/>
+                    <TextBlock x:Name="textElectronicKey0" Grid.Row="1" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicKey1}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData01" Grid.Row="1" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue11}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData02" Grid.Row="1" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue12}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicKey1" Grid.Row="1" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicKey2}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData11" Grid.Row="1" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue21}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData12" Grid.Row="1" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue22}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicKey2" Grid.Row="1" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicKey3}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData21" Grid.Row="1" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue31}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData22" Grid.Row="1" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue32}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicKey3" Grid.Row="1" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicKey4}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData31" Grid.Row="1" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue41}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData32" Grid.Row="1" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue42}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicKey4" Grid.Row="1" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicKey5}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData41" Grid.Row="1" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue51}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData42" Grid.Row="1" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue52}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicKey5" Grid.Row="1" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicKey6}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData51" Grid.Row="1" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue61}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData52" Grid.Row="1" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue62}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicKey6" Grid.Row="1" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicKey7}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData61" Grid.Row="1" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue71}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData62" Grid.Row="1" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue72}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicKey7" Grid.Row="1" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicKey8}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData71" Grid.Row="1" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue81}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData72" Grid.Row="1" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue82}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicKey8" Grid.Row="1" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicKey9}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData81" Grid.Row="1" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue91}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData82" Grid.Row="1" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue92}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicKey9" Grid.Row="1" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicKey10}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData91" Grid.Row="1" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue101}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textElectronicData92" Grid.Row="1" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.ElectronicValue102}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock x:Name="textMechanical" Grid.Row="2" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0"
+                               Text="mHW eBOM" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"
+                               FontWeight="Bold" FontSize="16"/>
+                    <TextBlock x:Name="textMechanical0" Grid.Row="2" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey1}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData0" Grid.Row="2" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue1}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical1" Grid.Row="2" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey2}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData1" Grid.Row="2" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue2}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical2" Grid.Row="2" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey3}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData2" Grid.Row="2" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue3}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical3" Grid.Row="2" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey4}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData3" Grid.Row="2" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue4}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical4" Grid.Row="2" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey5}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData4" Grid.Row="2" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue5}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical5" Grid.Row="2" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey6}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData5" Grid.Row="2" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue6}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical6" Grid.Row="2" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey7}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData6" Grid.Row="2" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue7}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical7" Grid.Row="2" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey8}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData7" Grid.Row="2" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue8}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical8" Grid.Row="2" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey9}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData8" Grid.Row="2" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue9}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical9" Grid.Row="2" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey10}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData9" Grid.Row="2" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue10}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical10" Grid.Row="2" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey11}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData10" Grid.Row="2" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue11}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical11" Grid.Row="2" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey12}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData11" Grid.Row="2" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue12}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical12" Grid.Row="2" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey13}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData12" Grid.Row="2" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue13}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical13" Grid.Row="2" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey14}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData13" Grid.Row="2" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue14}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical14" Grid.Row="2" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey15}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData14" Grid.Row="2" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue15}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical15" Grid.Row="2" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey16}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData15" Grid.Row="2" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue16}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical16" Grid.Row="2" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey17}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData16" Grid.Row="2" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue17}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical17" Grid.Row="2" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey18}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData17" Grid.Row="2" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue18}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical18" Grid.Row="2" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey19}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData18" Grid.Row="2" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue19}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanical19" Grid.Row="2" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalKey20}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textMechanicalData19" Grid.Row="2" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.MechanicalValue20}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock x:Name="textSoftware" Grid.Row="3" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0"
+                               Text="Software" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"
+                               FontWeight="Bold" FontSize="16"/>
+                    <TextBlock x:Name="textSoftware0" Grid.Row="3" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey1}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData0" Grid.Row="3" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue1}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware1" Grid.Row="3" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey2}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData1" Grid.Row="3" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue2}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware2" Grid.Row="3" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey3}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData2" Grid.Row="3" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue3}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware3" Grid.Row="3" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey4}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData3" Grid.Row="3" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue4}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware4" Grid.Row="3" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey5}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData4" Grid.Row="3" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue5}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware5" Grid.Row="3" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey6}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData5" Grid.Row="3" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue6}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware6" Grid.Row="3" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey7}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData6" Grid.Row="3" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue7}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware7" Grid.Row="3" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey8}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData7" Grid.Row="3" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue8}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware8" Grid.Row="3" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey9}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData8" Grid.Row="3" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue9}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware9" Grid.Row="3" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey10}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData9" Grid.Row="3" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue10}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware10" Grid.Row="3" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey11}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData10" Grid.Row="3" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue11}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware11" Grid.Row="3" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey12}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData11" Grid.Row="3" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue12}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware12" Grid.Row="3" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey13}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData12" Grid.Row="3" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue13}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware13" Grid.Row="3" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey14}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData13" Grid.Row="3" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue14}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware14" Grid.Row="3" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey15}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData14" Grid.Row="3" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue15}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware15" Grid.Row="3" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey16}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData15" Grid.Row="3" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue16}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware16" Grid.Row="3" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey17}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData16" Grid.Row="3" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue17}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware17" Grid.Row="3" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey18}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData17" Grid.Row="3" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue18}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware18" Grid.Row="3" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey19}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData18" Grid.Row="3" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue19}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftware19" Grid.Row="3" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareKey20}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textSoftwareData19" Grid.Row="3" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.SoftwareValue20}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock x:Name="textProcess" Grid.Row="4" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0"
+                               Text="Process" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"
+                               FontWeight="Bold" FontSize="16"/>
+                    <TextBlock x:Name="textProcess1" Grid.Row="4" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="AG &amp; CP:" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textProcessData1" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.Process}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textProcess2" Grid.Row="4" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="Trazability_SN:" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textProcessData2" Grid.Row="4" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.IsTrazability}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock x:Name="textLabeling" Grid.Row="5" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0"
+                               Text="Labelling" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"
+                               FontWeight="Bold" FontSize="16"/>
+                    <TextBlock x:Name="textLabeling0" Grid.Row="5" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey1}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData0" Grid.Row="5" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue1}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling1" Grid.Row="5" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey2}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData1" Grid.Row="5" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue2}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling2" Grid.Row="5" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey3}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData2" Grid.Row="5" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue3}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling3" Grid.Row="5" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey4}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData3" Grid.Row="5" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue4}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling4" Grid.Row="5" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey5}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData4" Grid.Row="5" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue5}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling5" Grid.Row="5" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey6}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData5" Grid.Row="5" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue6}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling6" Grid.Row="5" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey7}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData6" Grid.Row="5" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue7}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling7" Grid.Row="5" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey8}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData7" Grid.Row="5" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue8}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling8" Grid.Row="5" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey9}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData8" Grid.Row="5" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue9}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling9" Grid.Row="5" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey10}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData9" Grid.Row="5" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue10}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling10" Grid.Row="5" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey11}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData10" Grid.Row="5" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue11}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling11" Grid.Row="5" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey12}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData11" Grid.Row="5" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue12}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling12" Grid.Row="5" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey13}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData12" Grid.Row="5" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue13}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling13" Grid.Row="5" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey14}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData13" Grid.Row="5" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue14}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling14" Grid.Row="5" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey15}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData14" Grid.Row="5" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue15}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling15" Grid.Row="5" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey16}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData15" Grid.Row="5" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue16}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling16" Grid.Row="5" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey17}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData16" Grid.Row="5" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue17}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling17" Grid.Row="5" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey18}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData17" Grid.Row="5" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue18}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling18" Grid.Row="5" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey19}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData18" Grid.Row="5" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue19}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabeling19" Grid.Row="5" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingKey20}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textLabelingData19" Grid.Row="5" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.LabellingValue20}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock x:Name="textTesting" Grid.Row="6" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0"
+                               Text="Testing" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"
+                               FontWeight="Bold" FontSize="16"/>
+                    <TextBlock x:Name="textTesting0" Grid.Row="6" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey1}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData0" Grid.Row="6" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue1}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting1" Grid.Row="6" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey2}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData1" Grid.Row="6" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue2}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting2" Grid.Row="6" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey3}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData2" Grid.Row="6" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue3}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting3" Grid.Row="6" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey4}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData3" Grid.Row="6" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue4}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting4" Grid.Row="6" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey5}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData4" Grid.Row="6" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue5}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting5" Grid.Row="6" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey6}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData5" Grid.Row="6" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue6}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting6" Grid.Row="6" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey7}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData6" Grid.Row="6" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue7}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting7" Grid.Row="6" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey8}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData7" Grid.Row="6" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue8}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting8" Grid.Row="6" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey9}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData8" Grid.Row="6" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue9}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting9" Grid.Row="6" Grid.Column="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey10}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData9" Grid.Row="6" Grid.Column="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue10}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting10" Grid.Row="6" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey11}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData10" Grid.Row="6" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue11}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting11" Grid.Row="6" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey12}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData11" Grid.Row="6" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue12}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting12" Grid.Row="6" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey13}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData12" Grid.Row="6" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue13}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting13" Grid.Row="6" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey14}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData13" Grid.Row="6" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,75,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue14}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting14" Grid.Row="6" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey15}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData14" Grid.Row="6" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue15}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting15" Grid.Row="6" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey16}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData15" Grid.Row="6" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue16}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting16" Grid.Row="6" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey17}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData16" Grid.Row="6" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue17}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting17" Grid.Row="6" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey18}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData17" Grid.Row="6" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue18}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting18" Grid.Row="6" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey19}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData18" Grid.Row="6" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue19}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTesting19" Grid.Row="6" Grid.Column="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingKey20}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTestingData19" Grid.Row="6" Grid.Column="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,165,0,0"
+                               Text="{Binding ReleaseDefinitionExcel.TestingValue20}" Visibility="{Binding VisibleExcelContent, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+            </ScrollViewer>
+        </StackPanel>
+                  
+        <Button x:Name="LoadBtn" Grid.Row="2" Grid.Column="3" Margin="40"
+                Content="Subir versión" FontSize="30" IsEnabled="{Binding EnableUploadButton}"
+                Click="btnUpload_InternalVersion"/>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="DIV_Protos.PCBRegistration"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DIV_Protos"
+      mc:Ignorable="d">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="blueMahle" Color="#6d91aa" />
+    </UserControl.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="250" MaxWidth="350"/>
+            <ColumnDefinition Width="*" MinWidth="160" MaxWidth="200"/>
+            <ColumnDefinition Width="*"  MinWidth="150" MaxWidth="200"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="backButton" Grid.Row="0" Grid.Column="0" 
+                Height="30" Width="70" VerticalAlignment="Top" Margin="0,0,30,30"
+                Content="Back" FontWeight="Medium" Command="{Binding BackMenu}"
+                BorderThickness="2" Background="{StaticResource blueMahle}" Foreground="White"/>
+        <TextBlock x:Name="title" Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="1"
+                   Text="Alta PCBs" FontSize="48" FontWeight="Light"
+                   HorizontalAlignment="Center" Margin="0,0,0,40"/>
+        <TextBlock x:Name="userText" Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="3"
+                   Text="Usuario: " FontSize="20" FontWeight="Light"
+                   HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 170, 0"/>
+        <TextBlock x:Name="actualUser" Grid.Row="0" Grid.Column="4"
+                   Text="{Binding ActualUser, UpdateSourceTrigger=PropertyChanged}" FontSize="20" FontWeight="Light"
+                   HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,60,0"/>
+        
+        <TextBlock x:Name="referencesTextBox" Grid.Row="1" Grid.Column="1" 
+                   Text="Referencias:" FontSize="12" Margin="10"
+                   HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+        <ComboBox x:Name="referencesSelector" Grid.Row="1" Grid.Column="1" 
+                  ItemsSource="{Binding Path = PcbReferences}"
+                  SelectedValue="{Binding Path = ReferenceText, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Right" Width="140" Height="20" Margin="30, 0"/>
+
+        <TextBlock x:Name="refBOMTextBox" Grid.Row="1" Grid.Column="2" 
+                   Text="Layouts.BOM:" FontSize="12" Margin="0,10"
+                   HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <ComboBox x:Name="refBOMSelector" Grid.Row="1" Grid.Column="2" 
+                  ItemsSource="{Binding Path = PcbLayoutBOM, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding Path = LayoutBom, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Right" Width="50" Height="20" Margin="30,0"/>
+
+        <TextBlock x:Name="valueText" Grid.Row="1" Grid.Column="3" 
+                   Text="Lote:" Margin="10"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBox x:Name="valueTextBox" Grid.Row="1" Grid.Column="3" 
+                 Text="{Binding Lote, UpdateSourceTrigger=PropertyChanged}" 
+                 HorizontalAlignment="Right" Height="20" Width="100"/>
+
+        <TextBlock x:Name="snText" Grid.Row="2" Grid.Column="1" 
+                   Text="SN:" Margin="10"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBox x:Name="snTextBox" Grid.Row="2" Grid.Column="1" 
+                 Height="20" Width="160" Margin="30,0"
+                 Text="{Binding SnNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 KeyDown="OnKeyDownHandler" IsEnabled="{Binding Path = SnTexBoxEnabled, UpdateSourceTrigger = PropertyChanged}"
+                 HorizontalAlignment="Right"/>
+
+        <DataGrid Grid.ColumnSpan="3" Grid.Row="3" Grid.Column="1" 
+                    Name="gridResults" Margin="30"
+                    ItemsSource="{Binding SavedPCBs,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" 
+                    IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#" Binding="{Binding Order}"/>
+                <DataGridTextColumn Header="SN" Width="140" Binding="{Binding SnNumber}" />
+                <DataGridTextColumn Header="Referencia." Width="120" Binding="{Binding Reference}"/>
+                <DataGridTextColumn Header="Layout.BOM" Width="80" Binding="{Binding LayoutBom}"/>
+                <DataGridTextColumn Header="Lote" Width="80" Binding="{Binding Lote}"/>
+                <DataGridTextColumn Header="Resultado" Width="100" Binding="{Binding Saved}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Grid.RowSpan="2"  Grid.Row="2" Grid.Column="4" Margin="30" TextWrapping="Wrap"
+                    Text="Escanee el código con la pistola cuando haya rellenado los campos correspondientes." FontSize="16" FontWeight="ExtraLight"
+                    VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <Image Grid.RowSpan="2"  Grid.Row="2" Grid.Column="4" MaxHeight="250"
+                    Source="..\Assets\RegisterScanner.png" Margin="30,80,30,0" 
+                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="3" Margin="10,0"
+                   FontWeight="Bold"
+                   Text="PCBs registradas: "/>
+        <TextBlock Grid.Row="4" Grid.Column="3" Margin="110,0,0,0"
+                   FontWeight="Bold"
+                   Text="{Binding InsertedPCBs}"/>
+    </Grid>
+</UserControl>

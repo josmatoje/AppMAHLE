@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="DIV_Protos.OFRegistration"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DIV_Protos"
+      mc:Ignorable="d" >
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="blueMahle" Color="#6d91aa" />
+    </UserControl.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition MinWidth="550"/>
+            <ColumnDefinition MinWidth="800"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="backButton" Grid.Row="0" Grid.Column="0" 
+                Height="30" Width="70" VerticalAlignment="Top" Margin="0,0,30,30"
+                Content="Back" FontWeight="Medium" Command="{Binding BackMenu}"
+                BorderThickness="2" Background="{StaticResource blueMahle}" Foreground="White"/>
+        <TextBlock x:Name="title" Grid.Row="0" Grid.Column="1"
+                   Text="Alta Orden de Fabricación" FontSize="44" FontWeight="Light"
+                   HorizontalAlignment="Center" Margin="0,0,0,40"/>
+        <TextBlock x:Name="userText" Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="3"
+                   Text="Usuario: " FontSize="20" FontWeight="Light"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" Margin="70, 0, 0, 0"/>
+        <TextBlock x:Name="actualUser" Grid.Row="0" Grid.Column="3"
+                   Text="{Binding ActualUser, UpdateSourceTrigger=PropertyChanged}" FontSize="20" FontWeight="Light"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" Margin="140,0,50,0"/>
+
+        <TextBlock x:Name="descText" Grid.Row="1" Grid.Column="1" 
+                   Text="Introduce código OF*:" Margin="0,10"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBox x:Name="descTextBox" Grid.Row="1" Grid.Column="1" 
+                 Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode =TwoWay}" KeyDown="OnKeyDownHandler"
+                 HorizontalAlignment="Left" Height="20" Width="100" Margin="150,0"/>
+
+        <TextBlock x:Name="refSelectionText" Grid.Row="1" Grid.Column="1" 
+                   Text="Seleccióne tipo producto*:" FontSize="12" Margin="280,0,0,10"
+                   HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <ComboBox x:Name="refSelectionSelector" Grid.Row="1" Grid.Column="1"  VerticalContentAlignment="Center"
+                  ItemsSource="{Binding Path = List_ItemTypeOF, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding Path = SelectedType, UpdateSourceTrigger=PropertyChanged, Mode =TwoWay}" 
+                  HorizontalAlignment="Left"  VerticalAlignment="Bottom" Height="25" Width="100" Margin="450,0,0,5"/>
+        <TextBlock x:Name="inforText" Grid.Row="2" Grid.Column="1" 
+                   Text="Complete todos los campos obligatorios(*)" FontSize="10" Margin="280,0,0,10"
+                   HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+
+        <TextBlock x:Name="descriptionText" Grid.Row="2" Grid.Column="1" 
+                   Text="Ingrese area destinataria*:" Margin="0,10"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBox x:Name="descriptionTextBox" Grid.Row="2" Grid.Column="1" 
+                 Text="{Binding DescriptionOF, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnKeyDownHandler"
+                 HorizontalAlignment="Left" Height="20" Width="100" Margin="150,0,0,0"/>
+
+        <TextBlock x:Name="quantText" Grid.Row="3" Grid.Column="1" 
+                   Text="Indique cantidad OF*:" Margin="0,10"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBox x:Name="quantTextBox" Grid.Row="3" Grid.Column="1"
+                 Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnKeyDownHandler"
+                 VerticalAlignment="Top"  HorizontalAlignment="Left" Height="20" Width="100" Margin="150,10"/>
+
+        <Button  x:Name="registerButton" Grid.Row="1" Grid.Column="2" 
+                 Height="20" Width="80" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="60,0,0,0"
+                 Content="Ok" Command="{Binding SaveOFCommand}" IsEnabled="{Binding EnableOk}"/>
+
+        <TextBlock x:Name="ofType" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"
+                   Text="{Binding SelectedTypeTitle, UpdateSourceTrigger=PropertyChanged}" Margin="30,100" Visibility="{Binding ShowValues}" FontSize="40"
+                   HorizontalAlignment="Center" VerticalAlignment="Top" />
+        <TextBlock x:Name="descFeedbackText" Grid.Row="3" Grid.Column="1" 
+                   Text="Código:" Margin="30,200" Visibility="{Binding ShowValues}" FontSize="20"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBlock x:Name="descFeedbackTextValue" Grid.Row="3" Grid.Column="1"  Visibility="{Binding ShowValues}"
+                   Text="{Binding LastOF.Description, UpdateSourceTrigger=PropertyChanged}" Margin="110,200" FontSize="20" FontWeight="Light"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBlock x:Name="selectFeedbackText" Grid.Row="3" Grid.Column="2" 
+                   Text="{Binding Path = SelectedType, UpdateSourceTrigger=PropertyChanged}" Margin="0,200" Visibility="{Binding ShowValues}" FontSize="20"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <DataGrid Grid.ColumnSpan="3" Grid.Row="3" Grid.Column="1" 
+                    Name="gridResults" Margin="0,60,700,20" 
+                    ItemsSource="{Binding SavedOFs,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" 
+                    IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#" Binding="{Binding Order}"/>
+                <DataGridTextColumn Header="Código OF" Width="150" Binding="{Binding CodeOF}" />
+                <DataGridTextColumn Header="Cantidad" Width="90" Binding="{Binding Quantity}"/>
+                <DataGridTextColumn Header="Internal Name" Width="150" Binding="{Binding InternalName}"/>
+                <DataGridTextColumn Header="Resultado" Width="220" Binding="{Binding Saved}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
