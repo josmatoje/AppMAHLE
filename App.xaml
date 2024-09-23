@@ -1,0 +1,38 @@
+﻿<Application x:Class="DIV_Protos.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DIV_Protos">
+    <Application.Resources>
+        <!--Añadir los viewModels con sus respectivas vistas-->
+        <DataTemplate DataType="{x:Type local:ProyectSelectorViewModel}">
+            <local:ProyectSelector/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:MainMenuViewModel}">
+            <local:MainMenu/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:UserLoginViewModel}">
+            <local:UserLogin/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:PCBRegistrationViewModel}">
+            <local:PCBRegistration/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:HousingRegistrationViewModel}">
+            <local:HousingRegistration/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:InternalVersionViewModel}">
+            <local:InternalVersionRegistration/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:PCBReworkViewModel}">
+            <local:PCBRework/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:OFRegistrationViewModel}">
+            <local:OFRegistration/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:AGRegistrationViewModel}">
+            <local:AGRegistration/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:OFChangeViewModel}">
+            <local:OFChange/>
+        </DataTemplate>
+    </Application.Resources>
+</Application>

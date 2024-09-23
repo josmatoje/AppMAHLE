@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIV_Protos", "DIV_Protos.csproj", "{AD93175D-81CB-44F3-BFAC-752986ECD0CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD93175D-81CB-44F3-BFAC-752986ECD0CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD93175D-81CB-44F3-BFAC-752986ECD0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD93175D-81CB-44F3-BFAC-752986ECD0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD93175D-81CB-44F3-BFAC-752986ECD0CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64DF18A5-907E-4C19-B93E-1422848C8EB7}
+	EndGlobalSection
+EndGlobal
